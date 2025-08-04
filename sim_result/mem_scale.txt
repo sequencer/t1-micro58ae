@@ -1,0 +1,9 @@
+Config                          DRAM Enabled  Cycle    
+benchmark_dlen128_vlen512_fp    FALSE         811448   
+benchmark_dlen256_vlen1024_fp   FALSE         408587   
+benchmark_dlen512_vlen2048_fp   FALSE         205803   
+benchmark_dlen1024_vlen4096_fp  FALSE         104154   
+benchmark_dlen128_vlen512_fp    TRUE          1420066  
+benchmark_dlen256_vlen1024_fp   TRUE          1064674  
+benchmark_dlen512_vlen2048_fp   TRUE          896986   
+benchmark_dlen1024_vlen4096_fp  TRUE          945640   

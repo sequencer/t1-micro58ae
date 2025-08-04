@@ -1,0 +1,7 @@
+Name                  DLEN 128  DLEN 256  DLEN 512  DLEN 1024    
+memset                18201     12134     9101      7593         
+ascii_to_utf32        5995      4183      3260      2820         
+byteswap              54853     23283     15017     10999        
+linear_normalization  5989      3253      1941      1325         
+saxpy_8               19084     12220     8944      7227         
+matmul                104680    63453     49325     44528        
