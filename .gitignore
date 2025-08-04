@@ -1,0 +1,6 @@
+.ccls-cache
+*.pdf
+emulators
+sim_result.json
+dramsim3_output
+sve_benchmark_suites/bin/

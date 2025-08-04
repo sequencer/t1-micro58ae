@@ -1,0 +1,8 @@
+make: 'rvv_benchmark_suites/lib_rv64/sgemm.elf' is up to date.
+Average: 0.001020 secs
+make: 'rvv_benchmark_suites/lib_rv64/saxpy.elf' is up to date.
+Average: 0.000049 secs
+make: 'rvv_benchmark_suites/lib_rv64/quant.elf' is up to date.
+Average: 0.001228 secs
+make: 'rvv_benchmark_suites/lib_rv64/pack.elf' is up to date.
+Average: 0.000273 secs

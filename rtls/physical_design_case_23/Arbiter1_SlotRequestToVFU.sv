@@ -1,0 +1,107 @@
+module Arbiter1_SlotRequestToVFU(
+  input         io_in_0_valid,
+  input  [32:0] io_in_0_bits_src_0,
+                io_in_0_bits_src_1,
+                io_in_0_bits_src_2,
+                io_in_0_bits_src_3,
+  input  [3:0]  io_in_0_bits_opcode,
+                io_in_0_bits_mask,
+                io_in_0_bits_executeMask,
+  input         io_in_0_bits_sign0,
+                io_in_0_bits_sign,
+                io_in_0_bits_reverse,
+                io_in_0_bits_average,
+                io_in_0_bits_saturate,
+  input  [1:0]  io_in_0_bits_vxrm,
+                io_in_0_bits_vSew,
+  input  [19:0] io_in_0_bits_shifterSize,
+  input         io_in_0_bits_rem,
+  input  [1:0]  io_in_0_bits_executeIndex,
+  input  [9:0]  io_in_0_bits_popInit,
+  input  [5:0]  io_in_0_bits_groupIndex,
+  input  [1:0]  io_in_0_bits_laneIndex,
+  input         io_in_0_bits_maskType,
+                io_in_0_bits_narrow,
+  input  [1:0]  io_in_0_bits_tag,
+  output        io_out_valid,
+  output [32:0] io_out_bits_src_0,
+                io_out_bits_src_1,
+  output [3:0]  io_out_bits_opcode,
+                io_out_bits_mask,
+  output        io_out_bits_sign,
+                io_out_bits_reverse,
+                io_out_bits_average,
+                io_out_bits_saturate,
+  output [1:0]  io_out_bits_vxrm,
+                io_out_bits_vSew,
+                io_out_bits_executeIndex,
+                io_out_bits_tag
+);
+
+  wire        io_in_0_valid_0 = io_in_0_valid;
+  wire [32:0] io_in_0_bits_src_0_0 = io_in_0_bits_src_0;
+  wire [32:0] io_in_0_bits_src_1_0 = io_in_0_bits_src_1;
+  wire [32:0] io_in_0_bits_src_2_0 = io_in_0_bits_src_2;
+  wire [32:0] io_in_0_bits_src_3_0 = io_in_0_bits_src_3;
+  wire [3:0]  io_in_0_bits_opcode_0 = io_in_0_bits_opcode;
+  wire [3:0]  io_in_0_bits_mask_0 = io_in_0_bits_mask;
+  wire [3:0]  io_in_0_bits_executeMask_0 = io_in_0_bits_executeMask;
+  wire        io_in_0_bits_sign0_0 = io_in_0_bits_sign0;
+  wire        io_in_0_bits_sign_0 = io_in_0_bits_sign;
+  wire        io_in_0_bits_reverse_0 = io_in_0_bits_reverse;
+  wire        io_in_0_bits_average_0 = io_in_0_bits_average;
+  wire        io_in_0_bits_saturate_0 = io_in_0_bits_saturate;
+  wire [1:0]  io_in_0_bits_vxrm_0 = io_in_0_bits_vxrm;
+  wire [1:0]  io_in_0_bits_vSew_0 = io_in_0_bits_vSew;
+  wire [19:0] io_in_0_bits_shifterSize_0 = io_in_0_bits_shifterSize;
+  wire        io_in_0_bits_rem_0 = io_in_0_bits_rem;
+  wire [1:0]  io_in_0_bits_executeIndex_0 = io_in_0_bits_executeIndex;
+  wire [9:0]  io_in_0_bits_popInit_0 = io_in_0_bits_popInit;
+  wire [5:0]  io_in_0_bits_groupIndex_0 = io_in_0_bits_groupIndex;
+  wire [1:0]  io_in_0_bits_laneIndex_0 = io_in_0_bits_laneIndex;
+  wire        io_in_0_bits_maskType_0 = io_in_0_bits_maskType;
+  wire        io_in_0_bits_narrow_0 = io_in_0_bits_narrow;
+  wire [1:0]  io_in_0_bits_tag_0 = io_in_0_bits_tag;
+  wire        io_in_0_bits_complete = 1'h0;
+  wire        io_out_bits_complete = 1'h0;
+  wire        io_in_0_ready = 1'h1;
+  wire        io_out_ready = 1'h1;
+  wire        io_out_valid_0 = io_in_0_valid_0;
+  wire [32:0] io_out_bits_src_0_0 = io_in_0_bits_src_0_0;
+  wire [32:0] io_out_bits_src_1_0 = io_in_0_bits_src_1_0;
+  wire [32:0] io_out_bits_src_2 = io_in_0_bits_src_2_0;
+  wire [32:0] io_out_bits_src_3 = io_in_0_bits_src_3_0;
+  wire [3:0]  io_out_bits_opcode_0 = io_in_0_bits_opcode_0;
+  wire [3:0]  io_out_bits_mask_0 = io_in_0_bits_mask_0;
+  wire [3:0]  io_out_bits_executeMask = io_in_0_bits_executeMask_0;
+  wire        io_out_bits_sign0 = io_in_0_bits_sign0_0;
+  wire        io_out_bits_sign_0 = io_in_0_bits_sign_0;
+  wire        io_out_bits_reverse_0 = io_in_0_bits_reverse_0;
+  wire        io_out_bits_average_0 = io_in_0_bits_average_0;
+  wire        io_out_bits_saturate_0 = io_in_0_bits_saturate_0;
+  wire [1:0]  io_out_bits_vxrm_0 = io_in_0_bits_vxrm_0;
+  wire [1:0]  io_out_bits_vSew_0 = io_in_0_bits_vSew_0;
+  wire [19:0] io_out_bits_shifterSize = io_in_0_bits_shifterSize_0;
+  wire        io_out_bits_rem = io_in_0_bits_rem_0;
+  wire [1:0]  io_out_bits_executeIndex_0 = io_in_0_bits_executeIndex_0;
+  wire [9:0]  io_out_bits_popInit = io_in_0_bits_popInit_0;
+  wire [5:0]  io_out_bits_groupIndex = io_in_0_bits_groupIndex_0;
+  wire [1:0]  io_out_bits_laneIndex = io_in_0_bits_laneIndex_0;
+  wire        io_out_bits_maskType = io_in_0_bits_maskType_0;
+  wire        io_out_bits_narrow = io_in_0_bits_narrow_0;
+  wire [1:0]  io_out_bits_tag_0 = io_in_0_bits_tag_0;
+  assign io_out_valid = io_out_valid_0;
+  assign io_out_bits_src_0 = io_out_bits_src_0_0;
+  assign io_out_bits_src_1 = io_out_bits_src_1_0;
+  assign io_out_bits_opcode = io_out_bits_opcode_0;
+  assign io_out_bits_mask = io_out_bits_mask_0;
+  assign io_out_bits_sign = io_out_bits_sign_0;
+  assign io_out_bits_reverse = io_out_bits_reverse_0;
+  assign io_out_bits_average = io_out_bits_average_0;
+  assign io_out_bits_saturate = io_out_bits_saturate_0;
+  assign io_out_bits_vxrm = io_out_bits_vxrm_0;
+  assign io_out_bits_vSew = io_out_bits_vSew_0;
+  assign io_out_bits_executeIndex = io_out_bits_executeIndex_0;
+  assign io_out_bits_tag = io_out_bits_tag_0;
+endmodule
+
