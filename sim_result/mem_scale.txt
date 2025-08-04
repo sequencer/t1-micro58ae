@@ -1,0 +1,9 @@
+Config                          DRAM Enabled  Cycle    Time Elapsed in Sec(2.9 Ghz)  
+benchmark_dlen128_vlen512_fp    FALSE         878167   0.0003028162068965517         
+benchmark_dlen128_vlen512_fp    TRUE          1486162  0.0005124696551724138         
+benchmark_dlen256_vlen1024_fp   FALSE         444598   0.0001533096551724138         
+benchmark_dlen256_vlen1024_fp   TRUE          1115106  0.0003845193103448276         
+benchmark_dlen512_vlen2048_fp   FALSE         223318   7.700620689655172e-05         
+benchmark_dlen512_vlen2048_fp   TRUE          965029   0.00033276862068965516        
+benchmark_dlen1024_vlen4096_fp  FALSE         112678   3.885448275862069e-05         
+benchmark_dlen1024_vlen4096_fp  TRUE          955014   0.0003293151724137931         

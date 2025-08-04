@@ -1,0 +1,17 @@
+Config                          Case Name  Cycle    Time Elapsed in Secs (1.6GHz)
+benchmark_dlen128_vlen512_fp    pack       86729    5.4205625e-05
+benchmark_dlen128_vlen512_fp    quant      1084529  0.000677830625
+benchmark_dlen128_vlen512_fp    saxpy      37057    2.3160625e-05
+benchmark_dlen128_vlen512_fp    sgemm      1420066  0.00088754125
+benchmark_dlen256_vlen1024_fp   pack       64400    4.025e-05
+benchmark_dlen256_vlen1024_fp   quant      552791   0.000345494375
+benchmark_dlen256_vlen1024_fp   saxpy      30071    1.8794375e-05
+benchmark_dlen256_vlen1024_fp   sgemm      1064674  0.00066542125
+benchmark_dlen512_vlen2048_fp   pack       64915    4.0571875e-05
+benchmark_dlen512_vlen2048_fp   quant      285588   0.0001784925
+benchmark_dlen512_vlen2048_fp   saxpy      27262    1.703875e-05
+benchmark_dlen512_vlen2048_fp   sgemm      896986   0.00056061625
+benchmark_dlen1024_vlen4096_fp  pack       68397    4.2748125e-05
+benchmark_dlen1024_vlen4096_fp  quant      242026   0.00015126625
+benchmark_dlen1024_vlen4096_fp  saxpy      27913    1.7445625e-05
+benchmark_dlen1024_vlen4096_fp  sgemm      819225   0.000512015625

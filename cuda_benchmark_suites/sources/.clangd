@@ -1,0 +1,9 @@
+CompilationDatabase: build
+CompileFlags:
+  Remove:
+    - -rdc=true
+    - -ccbin=*
+    - -forward-unknown-to-host-compiler
+    - --generate-code=*
+  Add:
+    Add: [--cuda-gpu-arch=sm_75]

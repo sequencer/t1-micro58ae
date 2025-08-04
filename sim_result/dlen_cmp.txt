@@ -1,0 +1,5 @@
+Config                          memset  ascii_to_utf32  byteswap  linear_normalization  saxpy   sgemm  
+benchmark_dlen128_vlen1024_fp   5989    5995            18201     15832                 655395  54853  
+benchmark_dlen256_vlen1024_fp   3253    4183            12134     8188                  367249  23283  
+benchmark_dlen512_vlen1024_fp   1941    3260            9101      5058                  206768  15017  
+benchmark_dlen1024_vlen1024_fp  1325    2820            7593      3958                  161016  10999  
