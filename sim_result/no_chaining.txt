@@ -1,4 +1,4 @@
 Type                         Cycle  
-Standard T1                  8866   
-Disable Chaining             14795  
-Disable Memory Interleaving  9101   
+Standard T1                  14817  
+Disable Chaining             23862  
+Disable Memory Interleaving  19514  

@@ -57,8 +57,8 @@ CASES := memset \
 		byteswap \
 		linear_normalization \
 		matmul \
-		saxpy_8 saxpy_16 \
-		sgemm_8 sgemm_64 sgemm_128 \
+		saxpy_8 saxpy_16 saxpy32 \
+		sgemm_8 sgemm_16 sgemm_32 sgemm_64 sgemm_128 \
 		quant_8 quant_16 \
 		pack_256 pack_1024 \
 		ntt_512 \

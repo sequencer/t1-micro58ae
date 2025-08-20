@@ -75,8 +75,11 @@ let
 in
 {
   sgemm_8 = build "sgemm_8" 8;
+  sgemm_16 = build "sgemm_16" 16;
+  sgemm_32 = build "sgemm_32" 32;
   sgemm_64 = build "sgemm_64" 64;
   sgemm_128 = build "sgemm_128" 128;
+  sgemm_256 = build "sgemm_256" 256;
 }
 // (build_platform {
   platform = "aarch64";

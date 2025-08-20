@@ -70,6 +70,10 @@ in
 {
   saxpy_8 = build "saxpy_8" 8;
   saxpy_16 = build "saxpy_16" 16;
+  saxpy_32 = build "saxpy_32" 32;
+  saxpy_64 = build "saxpy_64" 64;
+  saxpy_128 = build "saxpy_128" 128;
+  saxpy_256 = build "saxpy_256" 256;
 }
 // (build_platform {
   platform = "aarch64";
