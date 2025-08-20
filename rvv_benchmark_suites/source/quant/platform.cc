@@ -23,6 +23,8 @@ int main(int argc, char *argv[]) {
   }
   int count = atoi(argv[1]);
 
+  double start = (double)std::clock() / CLOCKS_PER_SEC;
+
   static const float scale = 0.1f;
   static const int8_t zero_point = 0;
 
@@ -33,8 +35,6 @@ int main(int argc, char *argv[]) {
 
   int8_t quantized_data[_SIZE_N];
   MemRef<int8_t, 1> quantized_data_memref(quantized_data, sizes);
-
-  double start = (double)std::clock() / CLOCKS_PER_SEC;
 
   for (int i = 0; i < count; i++) {
     USE_MLIR_CIFACE(QUANT_LMUL, &data_memref, &quantized_data_memref, _SIZE_N,

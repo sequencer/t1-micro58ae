@@ -1,0 +1,106 @@
+ntt: # Devices
+
+## [0] `NVIDIA GeForce RTX 3090`
+* SM Version: 860 (PTX Version: 860)
+* Number of SMs: 82
+* SM Default Clock Rate: 1860 MHz
+* Global Memory: 23362 MiB Free / 24250 MiB Total
+* Global Memory Bus Peak: 936 GB/sec (384-bit DDR @9751MHz)
+* Max Shared Memory: 100 KiB/SM, 48 KiB/Block
+* L2 Cache Size: 6144 KiB
+* Maximum Active Blocks: 16/SM
+* Maximum Active Threads: 1536/SM, 1024/Block
+* Available Registers: 65536/SM, 65536/Block
+* ECC Enabled: No
+
+# Log
+
+```
+Run:  [1/5] ntt [Device=0 N=256]
+Warn: Current measurement timed out (3.00s) while over noise threshold (24.35% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.25s < 0.50s)
+Pass: Cold: 0.004831ms GPU, 0.009373ms CPU, 0.25s total GPU, 3.00s total wall, 52072x
+Pass: Batch: 0.003328ms GPU, 0.50s total GPU, 0.50s total wall, 150243x
+Run:  [2/5] ntt [Device=0 N=512]
+Warn: Current measurement timed out (3.00s) while over noise threshold (19.75% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.30s < 0.50s)
+Pass: Cold: 0.005758ms GPU, 0.010359ms CPU, 0.30s total GPU, 3.00s total wall, 51558x
+Pass: Batch: 0.004034ms GPU, 0.50s total GPU, 0.50s total wall, 123948x
+Run:  [3/5] ntt [Device=0 N=1024]
+Warn: Current measurement timed out (3.00s) while over noise threshold (15.03% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.36s < 0.50s)
+Pass: Cold: 0.007098ms GPU, 0.011746ms CPU, 0.36s total GPU, 3.00s total wall, 50620x
+Pass: Batch: 0.005576ms GPU, 0.50s total GPU, 0.50s total wall, 89670x
+Run:  [4/5] ntt [Device=0 N=2048]
+Pass: Cold: 0.011104ms GPU, 0.015826ms CPU, 0.50s total GPU, 2.73s total wall, 45040x
+Pass: Batch: 0.009348ms GPU, 0.50s total GPU, 0.50s total wall, 53488x
+Run:  [5/5] ntt [Device=0 N=4096]
+Pass: Cold: 0.022964ms GPU, 0.027684ms CPU, 0.50s total GPU, 1.32s total wall, 21776x
+Pass: Batch: 0.021310ms GPU, 0.50s total GPU, 0.50s total wall, 23463x
+```
+
+# Benchmark Results
+
+## ntt
+
+### [0] NVIDIA GeForce RTX 3090
+
+|  N   | L  | Samples | CPU Time  | Noise  | GPU Time  | Noise  |  Elem/s  | Samples | Batch GPU |
+|------|----|---------|-----------|--------|-----------|--------|----------|---------|-----------|
+|  256 |  8 |  52072x |  9.373 us | 27.54% |  4.831 us | 24.35% |   1.656M | 150243x |  3.328 us |
+|  512 |  9 |  51558x | 10.359 us | 27.84% |  5.758 us | 19.75% |   1.563M | 123948x |  4.034 us |
+| 1024 | 10 |  50620x | 11.746 us | 22.12% |  7.098 us | 15.03% |   1.409M |  89670x |  5.576 us |
+| 2048 | 11 |  45040x | 15.826 us | 17.56% | 11.104 us |  9.32% | 990.643K |  53488x |  9.348 us |
+| 4096 | 12 |  21776x | 27.684 us |  9.61% | 22.964 us |  4.58% | 522.554K |  23463x | 21.310 us |
+
+mkdir -p cuda_benchmark_suites/bin
+cd ./cuda_benchmark_suites/sources && nix build --out-link result
+cp ./cuda_benchmark_suites/sources/result/bin/mmm_bench cuda_benchmark_suites/bin/mmm_bench.elf
+mmm: # Devices
+
+## [0] `NVIDIA GeForce RTX 3090`
+* SM Version: 860 (PTX Version: 860)
+* Number of SMs: 82
+* SM Default Clock Rate: 1860 MHz
+* Global Memory: 23362 MiB Free / 24250 MiB Total
+* Global Memory Bus Peak: 936 GB/sec (384-bit DDR @9751MHz)
+* Max Shared Memory: 100 KiB/SM, 48 KiB/Block
+* L2 Cache Size: 6144 KiB
+* Maximum Active Blocks: 16/SM
+* Maximum Active Threads: 1536/SM, 1024/Block
+* Available Registers: 65536/SM, 65536/Block
+* ECC Enabled: No
+
+# Log
+
+```
+Run:  [1/4] mmm [Device=0 bits=1024]
+Warn: Current measurement timed out (1.00s) while over noise threshold (7.89% > 0.50%)
+Warn: Current measurement timed out (1.00s) before accumulating min_time (0.29s < 0.50s)
+Pass: Cold: 0.014701ms GPU, 0.019277ms CPU, 0.29s total GPU, 1.00s total wall, 19867x
+Pass: Batch: 0.013222ms GPU, 0.50s total GPU, 0.50s total wall, 37818x
+Run:  [2/4] mmm [Device=0 bits=2048]
+Warn: Current measurement timed out (1.00s) while over noise threshold (3.84% > 0.50%)
+Warn: Current measurement timed out (1.00s) before accumulating min_time (0.48s < 0.50s)
+Pass: Cold: 0.031725ms GPU, 0.036387ms CPU, 0.48s total GPU, 1.00s total wall, 15285x
+Pass: Batch: 0.027693ms GPU, 0.50s total GPU, 0.50s total wall, 18056x
+Run:  [3/4] mmm [Device=0 bits=4096]
+Pass: Cold: 0.069674ms GPU, 0.074473ms CPU, 0.50s total GPU, 0.72s total wall, 7184x
+Pass: Batch: 0.067994ms GPU, 0.51s total GPU, 0.51s total wall, 7448x
+Run:  [4/4] mmm [Device=0 bits=8192]
+Pass: Cold: 0.216334ms GPU, 0.221173ms CPU, 0.50s total GPU, 0.57s total wall, 2320x
+Pass: Batch: 0.204243ms GPU, 0.52s total GPU, 0.52s total wall, 2557x
+```
+
+# Benchmark Results
+
+## mmm
+
+### [0] NVIDIA GeForce RTX 3090
+
+| bits | Samples |  CPU Time  | Noise  |  GPU Time  | Noise | Samples | Batch GPU  |
+|------|---------|------------|--------|------------|-------|---------|------------|
+| 1024 |  19867x |  19.277 us | 13.93% |  14.701 us | 7.89% |  37818x |  13.222 us |
+| 2048 |  15285x |  36.387 us |  7.46% |  31.725 us | 3.84% |  18056x |  27.693 us |
+| 4096 |   7184x |  74.473 us |  3.88% |  69.674 us | 1.68% |   7448x |  67.994 us |
+| 8192 |   2320x | 221.173 us |  1.33% | 216.334 us | 0.58% |   2557x | 204.243 us |

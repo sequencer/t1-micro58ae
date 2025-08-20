@@ -3,7 +3,7 @@ clang++ -march=armv8.6-a+sve -O3 \
         -I ./rvv_benchmark_suites/source/include \
         ./rvv_benchmark_suites/source/sgemm/platform.cc sve_benchmark_suites/lib/sgemm.o \
         -o sve_benchmark_suites/bin/sgemm.elf
-sgemm: Average: 0.000095 secs
+sgemm: Average: 0.000086 secs
 
 mkdir -p sve_benchmark_suites/bin
 clang++ -march=armv8.6-a+sve -O3 \
@@ -17,11 +17,11 @@ clang++ -march=armv8.6-a+sve -O3 \
         -I ./rvv_benchmark_suites/source/include \
         ./rvv_benchmark_suites/source/quant/platform.cc sve_benchmark_suites/lib/quant.o \
         -o sve_benchmark_suites/bin/quant.elf
-quant: Average: 0.000163 secs
+quant: Average: 0.000152 secs
 
 mkdir -p sve_benchmark_suites/bin
 clang++ -march=armv8.6-a+sve -O3 \
         -I ./rvv_benchmark_suites/source/include \
         ./rvv_benchmark_suites/source/pack/platform.cc sve_benchmark_suites/lib/pack.o \
         -o sve_benchmark_suites/bin/pack.elf
-pack: Average: 0.000008 secs
+pack: Average: 0.000010 secs

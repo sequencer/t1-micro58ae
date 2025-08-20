@@ -1,8 +1,24 @@
-make: 'rvv_benchmark_suites/lib_rv64/sgemm.elf' is up to date.
-Average: 0.001020 secs
-make: 'rvv_benchmark_suites/lib_rv64/saxpy.elf' is up to date.
-Average: 0.000049 secs
-make: 'rvv_benchmark_suites/lib_rv64/quant.elf' is up to date.
-Average: 0.001228 secs
-make: 'rvv_benchmark_suites/lib_rv64/pack.elf' is up to date.
-Average: 0.000273 secs
+mkdir -p rvv_benchmark_suites/lib_rv64
+clang++ -march=rv64gcv -O3 \
+        -I ./rvv_benchmark_suites/source/include \
+        ./rvv_benchmark_suites/source/sgemm/platform.cc rvv_benchmark_suites/lib_rv64/sgemm.o \
+        -o rvv_benchmark_suites/lib_rv64/sgemm.elf
+Average: 0.001017 secs
+mkdir -p rvv_benchmark_suites/lib_rv64
+clang++ -march=rv64gcv -O3 \
+        -I ./rvv_benchmark_suites/source/include \
+        ./rvv_benchmark_suites/source/saxpy/platform.cc rvv_benchmark_suites/lib_rv64/saxpy.o \
+        -o rvv_benchmark_suites/lib_rv64/saxpy.elf
+Average: 0.000048 secs
+mkdir -p rvv_benchmark_suites/lib_rv64
+clang++ -march=rv64gcv -O3 \
+        -I ./rvv_benchmark_suites/source/include \
+        ./rvv_benchmark_suites/source/quant/platform.cc rvv_benchmark_suites/lib_rv64/quant.o \
+        -o rvv_benchmark_suites/lib_rv64/quant.elf
+Average: 0.001218 secs
+mkdir -p rvv_benchmark_suites/lib_rv64
+clang++ -march=rv64gcv -O3 \
+        -I ./rvv_benchmark_suites/source/include \
+        ./rvv_benchmark_suites/source/pack/platform.cc rvv_benchmark_suites/lib_rv64/pack.o \
+        -o rvv_benchmark_suites/lib_rv64/pack.elf
+Average: 0.000256 secs

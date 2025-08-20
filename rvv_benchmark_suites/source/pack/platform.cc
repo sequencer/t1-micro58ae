@@ -1,6 +1,6 @@
 #define MLIR_CIFACE_PREFIX _mlir_ciface_pack_vl_
 
-#define PACK_STEP 256
+#define PACK_STEP 512
 
 #include <ctime>
 #include <iomanip>
@@ -26,14 +26,14 @@ int main(int argc, char *argv[]) {
   }
   int count = atoi(argv[1]);
 
+  double startTime = (double)std::clock() / CLOCKS_PER_SEC;
+
   // MLIR data container configuration
   static int64_t srcSizes[1] = {_SIZE_4_N};
   static int64_t destSizes[1] = {_SIZE_N};
 
   MemRef<uint8_t, 1> memrefSrc(allocSrc, srcSizes);
   MemRef<uint32_t, 1> memrefDest(allocDest, destSizes);
-
-  double startTime = (double)std::clock() / CLOCKS_PER_SEC;
 
   for (int i = 0; i < count; i++) {
     USE_MLIR_CIFACE(PACK_STEP, &memrefSrc, &memrefDest, _SIZE_4_N, _SIZE_N);

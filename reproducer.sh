@@ -9,6 +9,7 @@ nix_add_path() {
 
 nix_add_path "jq.bin"
 nix_add_path "util-linux.bin"
+nix_add_path "python3"
 
 readCycle() {
   jq -r '.total_cycles' ./sim_result.json
@@ -42,22 +43,60 @@ dlenReproduce() {
     "ascii_to_utf32"
     "byteswap"
     "linear_normalization"
-    "saxpy_8"
-    "matmul"
+    "saxpy_16"
+    "saxpy_32"
+    "sgemm_16"
+    "sgemm_32"
   )
 
-  declare -A dlenCmpData
+
+  DLEN_CYCLE_DATA_TABLE="Config,"
+  declare -A header
+  for case in "${cases[@]}"; do
+    col=""
+    if [[ $case == *_[[:digit:]]* ]]; then
+      col="$(printf $case | cut -d'_' -f1)"
+    else
+      col="$case"
+    fi
+
+    if [[ -z "${header["$col"]}" ]]; then
+      DLEN_CYCLE_DATA_TABLE+="$col,"
+      header["$col"]="done"
+    fi
+  done
+  unset header
+  DLEN_CYCLE_DATA_TABLE+="\n"
 
   for cfg in "${cmpConfig[@]}"; do
+    declare -A dataset
+
     for case in "${cases[@]}"; do
       EMU_TYPE=t1emu ./run_emulator.sh "$cfg" "$case"
-      dlenCmpData["$case"]+="$(readCycle),"
-    done
-  done
 
-  DLEN_CYCLE_DATA_TABLE="Name,DLEN 128,DLEN 256,DLEN 512,DLEN 1024,\n"
-  for case in "${cases[@]}"; do
-    DLEN_CYCLE_DATA_TABLE+="$case,${dlenCmpData["$case"]},\n"
+      key=""
+      if [[ $case == *_[[:digit:]]* ]]; then
+        key="$(printf $case | cut -d'_' -f1)"
+      else
+        key="$case"
+      fi
+
+      cycle=$(readCycle)
+      if [[ -z "${dataset["$key"]}" ]]; then
+        dataset["$key"]="$cycle"
+        continue
+      fi
+
+      if (( ${dataset["$key"]} > $cycle )); then
+        dataset["$key"]="$cycle"
+      fi
+    done
+
+    DLEN_CYCLE_DATA_TABLE+="$cfg,"
+    for key in "${!dataset[@]}"; do
+      DLEN_CYCLE_DATA_TABLE+="${dataset["$key"]},"
+    done
+    DLEN_CYCLE_DATA_TABLE+="\n"
   done
 }
 
@@ -69,7 +108,7 @@ chainingReproduce() {
   echo "-----------------------------"
 
   chosen=benchmark_dlen256_vlen4096_fp
-  case=rvv_benchmark_suites/bin/${chosen}.saxpy_8.elf
+  case=rvv_benchmark_suites/bin/${chosen}.quant_16.elf
   make "$case"
 
   export EMU_TYPE=t1emu
@@ -110,11 +149,14 @@ cryptoReproduce() {
   )
 
 
-  CRYPTO_DATA_TABLE="Name,Cycle,\n"
+  freq=2.45
+  CRYPTO_DATA_TABLE="Name,Cycle,Time Elapsed in Secs ($freq GHz)\n"
 
   for case in "${cases[@]}"; do
     DRAMSIM3_ENABLE=1 ./run_emulator.sh "$cmpConfig" "$case"
-    CRYPTO_DATA_TABLE+="$case,$(readCycle),\n"
+    cycle=$(readCycle)
+    timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
+    CRYPTO_DATA_TABLE+="$case,$cycle,$timeElapsed\n"
   done
 }
 
@@ -132,8 +174,9 @@ kp920CmpReproduce() {
   )
   cases=(
     "sgemm_8"
+    "sgemm_16"
+    "sgemm_32"
     "sgemm_64"
-    "sgemm_128"
     "quant_8"
     "quant_16"
     "saxpy_8"
@@ -141,14 +184,36 @@ kp920CmpReproduce() {
     "pack_256"
     "pack_1024"
   )
+  freq=2.45
 
-  T1_KP920_CMP_DATA_TABLE="Case Name,Config,DRAM Enable,Cycle,\n"
-  for case in "${cases[@]}"; do
-    for config in "${cmpConfigs[@]}"; do
-      cfg=$(echo "$config" | cut -d',' -f1)
-      dramEnable=$(echo "$config" | cut -d',' -f2)
+  T1_KP920_CMP_DATA_TABLE="Config,DRAM Enable,Case Name,Cycle,Time Elapsed in Secs ($freq GHz)\n"
+
+  for config in "${cmpConfigs[@]}"; do
+    declare -A dataset=()
+
+    cfg=$(echo "$config" | cut -d',' -f1)
+    dramEnable=$(echo "$config" | cut -d',' -f2)
+
+    for case in "${cases[@]}"; do
       DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$cfg" "$case"
-      T1_KP920_CMP_DATA_TABLE+="$case,$cfg,$(intToBool $dramEnable),$(readCycle),\n"
+      cycle=$(readCycle)
+
+      key="$(printf $case | cut -d'_' -f1)"
+
+      if [[ -z "${dataset["$key"]}" ]]; then
+        dataset["$key"]=$cycle
+        continue
+      fi
+
+      if (( ${dataset["$key"]} > $cycle )); then
+        dataset["$key"]=$cycle
+      fi
+    done
+
+    for key in "${!dataset[@]}"; do
+      cycle=${dataset[$key]}
+      timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
+      T1_KP920_CMP_DATA_TABLE+="$cfg,$(intToBool $dramEnable),$key,$cycle,$timeElapsed,\n"
     done
   done
 }
@@ -160,21 +225,24 @@ scalabilityReproduce() {
   echo "Reproducing Memory Scalability"
   echo "------------------------------"
   cmpConfigs=(
-    "benchmark_dlen128_vlen512_fp,0"
-    "benchmark_dlen256_vlen1024_fp,0"
-    "benchmark_dlen512_vlen2048_fp,0"
-    "benchmark_dlen1024_vlen4096_fp,0"
-    "benchmark_dlen128_vlen512_fp,1"
-    "benchmark_dlen256_vlen1024_fp,1"
-    "benchmark_dlen512_vlen2048_fp,1"
-    "benchmark_dlen1024_vlen4096_fp,1"
+    "benchmark_dlen128_vlen512_fp"
+    "benchmark_dlen256_vlen1024_fp"
+    "benchmark_dlen512_vlen2048_fp"
+    "benchmark_dlen1024_vlen4096_fp"
   )
-  MEMORY_SCALE_DATA_TABLE="Config,DRAM Enabled,Cycle,\n"
+  freq=2.45
+  MEMORY_SCALE_DATA_TABLE="Config,Case,DRAM Enabled,Cycle,Time Elapsed in Sec($freq Ghz)\n"
+
   for config in "${cmpConfigs[@]}"; do
-    cfg=$(echo "$config" | cut -d',' -f1)
-    dramEnable=$(echo "$config" | cut -d',' -f2)
-    DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$cfg" "sgemm_64"
-    MEMORY_SCALE_DATA_TABLE+="$cfg,$(intToBool $dramEnable),$(readCycle),\n"
+    for dramEnable in 0 1; do
+      for case in sgemm_16 sgemm_32 sgemm_64; do
+        DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$config" "$case"
+        cycle=$(readCycle)
+        timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
+
+        MEMORY_SCALE_DATA_TABLE+="$config,$case,$(intToBool $dramEnable),$cycle,$timeElapsed,\n"
+      done
+    done
   done
 }
 
@@ -192,8 +260,9 @@ x60CmpReproduce() {
   )
   cases=(
     "sgemm_8"
+    "sgemm_16"
+    "sgemm_32"
     "sgemm_64"
-    "sgemm_128"
     "quant_8"
     "quant_16"
     "saxpy_8"
@@ -201,11 +270,31 @@ x60CmpReproduce() {
     "pack_256"
     "pack_1024"
   )
-  X60_COMPARE_DATA_TABLE="Case Name,Config,Cycle,\n"
-  for case in "${cases[@]}"; do
-    for config in "${cmpConfigs[@]}"; do
+  freq=1.6
+
+  X60_COMPARE_DATA_TABLE="Config,Case Name,Cycle,Time Elapsed in Secs ($freq GHz)\n"
+  for config in "${cmpConfigs[@]}"; do
+    declare -A dataset=()
+
+    for case in "${cases[@]}"; do
       DRAMSIM3_ENABLE=1 ./run_emulator.sh "$config" "$case"
-      X60_COMPARE_DATA_TABLE+="$case,$config,$(readCycle),\n"
+      cycle=$(readCycle)
+
+      key=$(printf "$case" | cut -d'_' -f1)
+      if [[ -z "${dataset["$key"]}" ]]; then
+        dataset["$key"]=$cycle
+        continue
+      fi
+
+      if (( ${dataset["$key"]} > $cycle )); then
+        dataset["$key"]=$cycle
+      fi
+    done
+
+    for key in ${!dataset[@]}; do
+      cycle=${dataset["$key"]}
+      timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
+      X60_COMPARE_DATA_TABLE+="$config,$key,$cycle,$timeElapsed\n"
     done
   done
 }

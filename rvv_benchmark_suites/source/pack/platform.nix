@@ -21,9 +21,9 @@ let
     buildPhase = ''
       mkdir -p $out
 
-      vs=256
-      vs4=1024
-      echo "[$caseName] Using VS=$vs"
+      vs=512
+      vs4=2048
+      echo "[$caseName] Using VL=$vs"
       sed "s/STEP_PLACEHOLDER/$vs/g" ./pack.mlir \
         | sed "s/STEP_4_PLACEHOLDER/$vs4/g" \
         > $caseName.mlir

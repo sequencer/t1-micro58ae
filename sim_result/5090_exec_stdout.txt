@@ -1,0 +1,106 @@
+ntt: # Devices
+
+## [0] `NVIDIA GeForce RTX 5090`
+* SM Version: 1200 (PTX Version: 1200)
+* Number of SMs: 170
+* SM Default Clock Rate: 18446744071821 MHz
+* Global Memory: 30708 MiB Free / 32120 MiB Total
+* Global Memory Bus Peak: 1792 GB/sec (512-bit DDR @14001MHz)
+* Max Shared Memory: 100 KiB/SM, 48 KiB/Block
+* L2 Cache Size: 98304 KiB
+* Maximum Active Blocks: 24/SM
+* Maximum Active Threads: 1536/SM, 1024/Block
+* Available Registers: 65536/SM, 65536/Block
+* ECC Enabled: No
+
+# Log
+
+```
+Run:  [1/5] ntt [Device=0 N=256]
+Warn: Current measurement timed out (3.00s) while over noise threshold (7.74% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.15s < 0.50s)
+Pass: Cold: 0.004148ms GPU, 0.009074ms CPU, 0.15s total GPU, 3.00s total wall, 35724x
+Pass: Batch: 0.004096ms GPU, 0.53s total GPU, 0.53s total wall, 128495x
+Run:  [2/5] ntt [Device=0 N=512]
+Warn: Current measurement timed out (3.00s) while over noise threshold (1.08% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.21s < 0.50s)
+Pass: Cold: 0.006130ms GPU, 0.011490ms CPU, 0.21s total GPU, 3.00s total wall, 34689x
+Pass: Batch: 0.004105ms GPU, 0.50s total GPU, 0.50s total wall, 121817x
+Run:  [3/5] ntt [Device=0 N=1024]
+Warn: Current measurement timed out (3.00s) while over noise threshold (1.09% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.22s < 0.50s)
+Pass: Cold: 0.006135ms GPU, 0.010847ms CPU, 0.22s total GPU, 3.00s total wall, 35088x
+Pass: Batch: 0.004099ms GPU, 0.50s total GPU, 0.50s total wall, 121978x
+Run:  [4/5] ntt [Device=0 N=2048]
+Warn: Current measurement timed out (3.00s) while over noise threshold (3.02% > 0.50%)
+Warn: Current measurement timed out (3.00s) before accumulating min_time (0.28s < 0.50s)
+Pass: Cold: 0.008214ms GPU, 0.013747ms CPU, 0.28s total GPU, 3.00s total wall, 33797x
+Pass: Batch: 0.008190ms GPU, 0.53s total GPU, 0.53s total wall, 64247x
+Run:  [5/5] ntt [Device=0 N=4096]
+Pass: Cold: 0.016367ms GPU, 0.021312ms CPU, 0.50s total GPU, 2.91s total wall, 30560x
+Pass: Batch: 0.016100ms GPU, 0.52s total GPU, 0.52s total wall, 32123x
+```
+
+# Benchmark Results
+
+## ntt
+
+### [0] NVIDIA GeForce RTX 5090
+
+|  N   | L  | Samples | CPU Time  | Noise  | GPU Time  | Noise |  Elem/s  | Samples | Batch GPU |
+|------|----|---------|-----------|--------|-----------|-------|----------|---------|-----------|
+|  256 |  8 |  35724x |  9.074 us | 23.78% |  4.148 us | 7.74% |   1.929M | 128495x |  4.096 us |
+|  512 |  9 |  34689x | 11.490 us | 11.98% |  6.130 us | 1.08% |   1.468M | 121817x |  4.105 us |
+| 1024 | 10 |  35088x | 10.847 us | 21.94% |  6.135 us | 1.09% |   1.630M | 121978x |  4.099 us |
+| 2048 | 11 |  33797x | 13.747 us | 10.99% |  8.214 us | 3.02% |   1.339M |  64247x |  8.190 us |
+| 4096 | 12 |  30560x | 21.312 us |  6.51% | 16.367 us | 1.06% | 733.179K |  32123x | 16.100 us |
+
+make: 'cuda_benchmark_suites/bin/mmm_bench.elf' is up to date.
+mmm: # Devices
+
+## [0] `NVIDIA GeForce RTX 5090`
+* SM Version: 1200 (PTX Version: 1200)
+* Number of SMs: 170
+* SM Default Clock Rate: 18446744071821 MHz
+* Global Memory: 30708 MiB Free / 32120 MiB Total
+* Global Memory Bus Peak: 1792 GB/sec (512-bit DDR @14001MHz)
+* Max Shared Memory: 100 KiB/SM, 48 KiB/Block
+* L2 Cache Size: 98304 KiB
+* Maximum Active Blocks: 24/SM
+* Maximum Active Threads: 1536/SM, 1024/Block
+* Available Registers: 65536/SM, 65536/Block
+* ECC Enabled: No
+
+# Log
+
+```
+Run:  [1/4] mmm [Device=0 bits=1024]
+Warn: Current measurement timed out (1.00s) before accumulating min_time (0.14s < 0.50s)
+Pass: Cold: 0.012279ms GPU, 0.017291ms CPU, 0.14s total GPU, 1.00s total wall, 11474x
+Pass: Batch: 0.010229ms GPU, 0.54s total GPU, 0.54s total wall, 52885x
+Run:  [2/4] mmm [Device=0 bits=2048]
+Warn: Current measurement timed out (1.00s) before accumulating min_time (0.23s < 0.50s)
+Pass: Cold: 0.022515ms GPU, 0.027869ms CPU, 0.23s total GPU, 1.00s total wall, 10221x
+Pass: Batch: 0.018432ms GPU, 0.53s total GPU, 0.53s total wall, 28554x
+Run:  [3/4] mmm [Device=0 bits=4096]
+Warn: Current measurement timed out (1.00s) before accumulating min_time (0.40s < 0.50s)
+Pass: Cold: 0.049146ms GPU, 0.054155ms CPU, 0.40s total GPU, 1.00s total wall, 8110x
+Pass: Batch: 0.042944ms GPU, 0.53s total GPU, 0.53s total wall, 12237x
+Run:  [4/4] mmm [Device=0 bits=8192]
+Pass: Cold: 0.133104ms GPU, 0.138624ms CPU, 0.50s total GPU, 0.78s total wall, 3757x
+Pass: Batch: 0.120294ms GPU, 0.52s total GPU, 0.52s total wall, 4355x
+```
+
+# Benchmark Results
+
+## mmm
+
+### [0] NVIDIA GeForce RTX 5090
+
+| bits | Samples |  CPU Time  | Noise  |  GPU Time  | Noise | Samples | Batch GPU  |
+|------|---------|------------|--------|------------|-------|---------|------------|
+| 1024 |  11474x |  17.291 us | 18.83% |  12.279 us | 0.43% |  52885x |  10.229 us |
+| 2048 |  10221x |  27.869 us |  4.01% |  22.515 us | 0.32% |  28554x |  18.432 us |
+| 4096 |   8110x |  54.155 us |  2.30% |  49.146 us | 0.22% |  12237x |  42.944 us |
+| 8192 |   3757x | 138.624 us |  0.80% | 133.104 us | 0.11% |   4355x | 120.294 us |
+

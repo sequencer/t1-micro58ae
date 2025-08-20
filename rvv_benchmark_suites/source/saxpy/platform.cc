@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) {
   }
   int count = atoi(argv[1]);
 
+  double startTime = (double)std::clock() / CLOCKS_PER_SEC;
+
   float *X = nullptr;
   const float A = 5.5;
   float *scalarY = nullptr;
@@ -35,8 +37,6 @@ int main(int argc, char *argv[]) {
 
   MemRef<float, 1> memrefX(dataX, sizesX);
   MemRef<float, 1> memrefY(dataY, sizesY);
-
-  double startTime = (double)std::clock() / CLOCKS_PER_SEC;
 
   for (int i = 0; i < count; i++) {
     USE_MLIR_CIFACE(SAXPY_LMUL, _SIZE_N, &memrefX, &memrefY, A);
