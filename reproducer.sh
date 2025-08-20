@@ -182,7 +182,7 @@ kp920CmpReproduce() {
   )
   freq=2900
 
-  T1_KP920_CMP_DATA_TABLE="Config,DRAM Enable,Case Name,Cycle,Time Elapsed in Secs (2.9GHz)\n"
+  T1_KP920_CMP_DATA_TABLE="Config,DRAM Enable,Case Name,Cycle,Time Elapsed in Secs (2.45GHz)\n"
 
   for config in "${cmpConfigs[@]}"; do
     declare -A dataset=()
@@ -226,16 +226,18 @@ scalabilityReproduce() {
     "benchmark_dlen512_vlen2048_fp"
     "benchmark_dlen1024_vlen4096_fp"
   )
-  freq=2.9
-  MEMORY_SCALE_DATA_TABLE="Config,DRAM Enabled,Cycle,Time Elapsed in Sec($freq Ghz)\n"
+  freq=2.45
+  MEMORY_SCALE_DATA_TABLE="Config,Case,DRAM Enabled,Cycle,Time Elapsed in Sec($freq Ghz)\n"
 
   for config in "${cmpConfigs[@]}"; do
     for dramEnable in 0 1; do
-      DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$config" "sgemm_32"
-      cycle=$(readCycle)
-      timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
+      for case in sgemm_16 sgemm_32 sgemm_64; do
+        DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$config" "$case"
+        cycle=$(readCycle)
+        timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
 
-      MEMORY_SCALE_DATA_TABLE+="$config,$(intToBool $dramEnable),$cycle,$timeElapsed,\n"
+        MEMORY_SCALE_DATA_TABLE+="$config,$case,$(intToBool $dramEnable),$cycle,$timeElapsed,\n"
+      done
     done
   done
 }

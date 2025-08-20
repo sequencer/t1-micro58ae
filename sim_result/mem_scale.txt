@@ -1,9 +1,25 @@
-Config                          DRAM Enabled  Cycle    Time Elapsed in Sec(2.9 Ghz)  
-benchmark_dlen128_vlen512_fp    FALSE         878167   0.0003028162068965517         
-benchmark_dlen128_vlen512_fp    TRUE          1486162  0.0005124696551724138         
-benchmark_dlen256_vlen1024_fp   FALSE         444598   0.0001533096551724138         
-benchmark_dlen256_vlen1024_fp   TRUE          1115106  0.0003845193103448276         
-benchmark_dlen512_vlen2048_fp   FALSE         223318   7.700620689655172e-05         
-benchmark_dlen512_vlen2048_fp   TRUE          965029   0.00033276862068965516        
-benchmark_dlen1024_vlen4096_fp  FALSE         112678   3.885448275862069e-05         
-benchmark_dlen1024_vlen4096_fp  TRUE          955014   0.0003293151724137931         
+Config                          Case      DRAM Enabled  Cycle    Time Elapsed in Sec(2.45 Ghz)  
+benchmark_dlen128_vlen512_fp    sgemm_16  FALSE         1200731  0.0004900942857142857          
+benchmark_dlen128_vlen512_fp    sgemm_32  FALSE         878167   0.0003584355102040816          
+benchmark_dlen128_vlen512_fp    sgemm_64  FALSE         811448   0.00033120326530612247         
+benchmark_dlen128_vlen512_fp    sgemm_16  TRUE          2015858  0.0008227991836734694          
+benchmark_dlen128_vlen512_fp    sgemm_32  TRUE          1486162  0.0006065967346938775          
+benchmark_dlen128_vlen512_fp    sgemm_64  TRUE          1420066  0.0005796187755102041          
+benchmark_dlen256_vlen1024_fp   sgemm_16  FALSE         614649   0.0002508771428571429          
+benchmark_dlen256_vlen1024_fp   sgemm_32  FALSE         444598   0.00018146857142857143         
+benchmark_dlen256_vlen1024_fp   sgemm_64  FALSE         408587   0.00016677020408163265         
+benchmark_dlen256_vlen1024_fp   sgemm_16  TRUE          1220688  0.00049824                     
+benchmark_dlen256_vlen1024_fp   sgemm_32  TRUE          1115106  0.00045514530612244896         
+benchmark_dlen256_vlen1024_fp   sgemm_64  TRUE          1064674  0.00043456081632653064         
+benchmark_dlen512_vlen2048_fp   sgemm_16  FALSE         308201   0.00012579632653061224         
+benchmark_dlen512_vlen2048_fp   sgemm_32  FALSE         223318   9.115020408163265e-05          
+benchmark_dlen512_vlen2048_fp   sgemm_64  FALSE         205803   8.400122448979592e-05          
+benchmark_dlen512_vlen2048_fp   sgemm_16  TRUE          938339   0.00038299551020408163         
+benchmark_dlen512_vlen2048_fp   sgemm_32  TRUE          965029   0.00039388938775510203         
+benchmark_dlen512_vlen2048_fp   sgemm_64  TRUE          896986   0.00036611673469387756         
+benchmark_dlen1024_vlen4096_fp  sgemm_16  FALSE         154977   6.325591836734694e-05          
+benchmark_dlen1024_vlen4096_fp  sgemm_32  FALSE         112678   4.5991020408163265e-05         
+benchmark_dlen1024_vlen4096_fp  sgemm_64  FALSE         104154   4.2511836734693875e-05         
+benchmark_dlen1024_vlen4096_fp  sgemm_16  TRUE          819225   0.0003343775510204082          
+benchmark_dlen1024_vlen4096_fp  sgemm_32  TRUE          955014   0.00038980163265306124         
+benchmark_dlen1024_vlen4096_fp  sgemm_64  TRUE          945640   0.0003859755102040816          
