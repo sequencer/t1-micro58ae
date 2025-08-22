@@ -10,7 +10,7 @@ for case in "${cases[@]}"; do
   printf "$case: "
   tput sc
   printf "Running"
-  LD_LIBRARY_PATH=./cuda_benchmark_suites/lib result=$(./cuda_benchmark_suites/bin/${case}_bench.elf)
+  result=$(LD_LIBRARY_PATH=./cuda_benchmark_suites/lib ./cuda_benchmark_suites/bin/${case}_bench.elf)
   tput rc
   tput el
   echo "$result\n"
