@@ -7,6 +7,10 @@ if [[ "$vendorID" != "HiSilicon" ]]; then
 fi
 
 make sve_benchmark_suites/bin/pack.elf
+sve_benchmark_suites/bin/pack.elf 10000
 make sve_benchmark_suites/bin/quant.elf
+sve_benchmark_suites/bin/quant.elf 10000
 make sve_benchmark_suites/bin/saxpy.elf
+sve_benchmark_suites/bin/saxpy.elf 10000
 make sve_benchmark_suites/bin/sgemm.elf
+sve_benchmark_suites/bin/sgemm.elf 10000
