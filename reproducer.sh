@@ -235,7 +235,7 @@ scalabilityReproduce() {
 
   for config in "${cmpConfigs[@]}"; do
     for dramEnable in 0 1; do
-      for case in sgemm_16 sgemm_32 sgemm_64; do
+      for case in quant_8 quant_16; do
         DRAMSIM3_ENABLE="$dramEnable" ./run_emulator.sh "$config" "$case"
         cycle=$(readCycle)
         timeElapsed=$(python3 -c "print($cycle/($freq*1000_000_000))")
