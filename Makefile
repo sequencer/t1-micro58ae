@@ -4,6 +4,7 @@ EMULATOR_BIN_DIR := emulators
 RTL_ARCHIVE_DIR := rtls
 RVV_CASE_DIR := rvv_benchmark_suites
 SVE_CASE_DIR := sve_benchmark_suites
+CUDA_CASE_DIR := cuda_benchmark_suites
 
 EMU_TYPE := t1rocketemu
 
@@ -152,3 +153,12 @@ $(SVE_CASE_DIR)/bin/%.elf: $(SVE_CASE_DIR)/lib/%.o
 		-I ./rvv_benchmark_suites/source/include \
 		./rvv_benchmark_suites/source/$*/platform.cc $< \
 		-o $@
+
+$(CUDA_CASE_DIR)/lib:
+	mkdir -p $@
+	cp /usr/lib/x86_64-linux-gnu/{libcuda.so*,libnvidia-ml*} $@
+
+$(CUDA_CASE_DIR)/bin/%_bench.elf: $(CUDA_CASE_DIR)/lib
+	mkdir -p $(@D)
+	cd ./cuda_benchmark_suites/sources && nix build --out-link result
+	cp ./cuda_benchmark_suites/sources/result/bin/$*_bench $@
