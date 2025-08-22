@@ -13,6 +13,6 @@ for case in "${cases[@]}"; do
   LD_LIBRARY_PATH=./cuda_benchmark_suites/lib result=$(./cuda_benchmark_suites/bin/${case}_bench.elf)
   tput rc
   tput el
-  printf "$result\n"
+  echo "$result\n"
   echo
 done
