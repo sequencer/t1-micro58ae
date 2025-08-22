@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 cases=(
-  "ntt_bench"
-  "mmm_bench"
+  "ntt"
+  "mmm"
 )
 
 for case in "${cases[@]}"; do
-  make ./sve_benchmark_suites/bin/$case.elf
+  make ./cuda_benchmark_suites/bin/$case.elf
   printf "$case: "
   tput sc
   printf "Running"
